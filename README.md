@@ -66,4 +66,4 @@ Easily share personalized cards with secure OAuth-based authentication.
 
 ## License
 
-This project is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International. See the LICENSE file for details.
+This project is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International. See the [LICENSE](https://github.com/ericgitangu/interactive-birthday-card/blob/main/LICENSE.md) file for details.
