@@ -37,7 +37,7 @@ Easily share personalized cards with secure OAuth-based authentication.
 
 ---
 
-### **Gallery**
+### 🖼️ **Gallery**
 Share personalized images in an auto-scroll gallery, performs manipulations to ensure the perfect fit.
 Images are drawn randomly through the app, dynamic image rendering based on the slug (params),
 Served from Vercel Blobs and optimized in addition to NextJS Image optimization for lazy performant loads.
