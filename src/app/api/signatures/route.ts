@@ -24,15 +24,17 @@ export async function POST(request: Request) {
     try {
         // Check for existing signatures
         const existingSignatures = await redis.lrange(`card:${cardId}:signatures`, 0, -1);
-        const hasSignedAlready = existingSignatures.some(sigString => {
-            try {
-                const parsed = JSON.parse(sigString);
-                return parsed.name === userName || parsed.signature === signature;
-            } catch (e) {
-                console.error('Failed to parse signature:', e);
-                return false;
-            }
+        // console.log('Checking signatures for:', userName);
+        // console.log('Existing signatures:', existingSignatures);
+
+        const hasSignedAlready = existingSignatures.some(sig => {
+            // No need to parse, sig is already an object
+            const name = typeof sig === 'object' && sig !== null ? (sig as { name: string }).name : '';
+            // console.log('Comparing:', name, 'with:', userName);
+            return name.trim().toLowerCase() === userName.trim().toLowerCase();
         });
+
+        console.log('Has signed already:', hasSignedAlready);
 
         if (hasSignedAlready) {
             return NextResponse.json(
