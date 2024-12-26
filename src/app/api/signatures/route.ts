@@ -34,7 +34,7 @@ export async function POST(request: Request) {
             return name.trim().toLowerCase() === userName.trim().toLowerCase();
         });
 
-        console.log('Has signed already:', hasSignedAlready);
+        // console.log('Has signed already:', hasSignedAlready);
 
         if (hasSignedAlready) {
             return NextResponse.json(

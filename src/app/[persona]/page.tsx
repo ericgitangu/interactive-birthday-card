@@ -200,6 +200,19 @@ const HomePage: React.FC = () => {
           </IconButton>
         </Box>
 
+        <Button
+          variant="contained"
+          sx={{
+            marginBottom: 2,
+            backgroundColor: '#ff6f61',
+            '&:hover': { backgroundColor: '#ff3d3d' },
+            boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+          }}
+          onClick={() => router.push(`/${params.persona}/signatures`)}
+        >
+          Sign {params.persona}&apos;s Card
+        </Button>
+
         <Snackbar
           open={openSnackbar}
           autoHideDuration={2000}

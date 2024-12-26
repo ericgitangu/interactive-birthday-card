@@ -5,7 +5,7 @@ import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 import MicrophoneBlowDetection from '@/components/MicrophoneBlowDetection';
 import Image from 'next/image';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
-// import AudioVisualizer from '@/components/AudioVisualizer';
+import AudioVisualizer from '@/components/AudioVisualizer';
 import confetti from 'canvas-confetti';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from '@/components/SnackbarProvider';
@@ -106,7 +106,7 @@ const CakeWithCandles: React.FC<CakeWithCandlesProps> = ({ persona: personaProp,
 
     // Launch confetti animation
     const launchConfetti = () => {
-        const duration = 2000;
+        const duration = 1000;
         const end = Date.now() + duration;
 
         const interval = setInterval(() => {
@@ -231,7 +231,7 @@ const CakeWithCandles: React.FC<CakeWithCandlesProps> = ({ persona: personaProp,
                         </Box>
                     ))}
                 </Box>
-                {/* <AudioVisualizer /> */}
+                <AudioVisualizer />
                 <MicrophoneBlowDetection onBlow={handleBlow} />
             </Box>
         </Box>

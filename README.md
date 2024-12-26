@@ -10,36 +10,37 @@
 ### 🎂 **Personalized Cards**
 Create unique cards with tailored visuals and messages.
 
-![Card](https://img.icons8.com/color/96/000000/gift.png)
+![Card](/public/images/landing.png)
 
 ---
 
 ### 🔥 **Interactive Candles**
 Blow out candles with dynamic animations based on the user's generation.
 
-![Candles](https://img.icons8.com/color/96/000000/fire-element.png)
+![Candles](/public/images/candles.png)
 
 ---
 
 ### ✍️ **Signatures and Wishes**
 Invite friends to sign the card and leave heartfelt messages.
 
-![Signatures](https://img.icons8.com/color/96/000000/signature.png)
+![Signatures](/public/images/signatures.png)
 
 ---
 
 ### 🔗 **Shareable Links**
 Easily share personalized cards with secure OAuth-based authentication.
 
-![Shareable](https://img.icons8.com/color/96/000000/share--v1.png)
+![Shareable](/public/images/sharepage.png)
 
 ---
 
-### 🎨 **Dark/Light Theme Toggle**
-- Seamlessly switch between light and dark themes.
-- Persistent theme stored in localStorage.
+### **Gallery**
+Share personalized images in an auto-scroll gallery, performs manipulations to ensure the perfect fit.
+Images are drawn randomly through the app, dynamic image rendering based on the slug (params),
+Served from Vercel Blobs and optimized in addition to NextJS Image optimization for lazy performant loads.
 
-![Dark Mode](https://img.icons8.com/color/96/000000/film-noir.png)
+![Gallery](/public/images/gallery.png)
 
 ---
 
