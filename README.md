@@ -10,6 +10,8 @@
 ### 🎂 **Personalized Cards**
 Create unique cards with tailored visuals and messages.
 
+>Credits to **Sora by OpenAI** for video generation.
+
 ![Card](/public/images/landing.png)
 
 ---
@@ -39,8 +41,6 @@ Easily share personalized cards with secure OAuth-based authentication.
 Share personalized images in an auto-scroll gallery, performs manipulations to ensure the perfect fit.
 Images are drawn randomly through the app, dynamic image rendering based on the slug (params),
 Served from Vercel Blobs and optimized in addition to NextJS Image optimization for lazy performant loads.
-
->Credits to **Sora by OpenAI** for video generation.
 
 ![Gallery](/public/images/gallery.png)
 
