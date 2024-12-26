@@ -24,7 +24,7 @@ Blow out candles with dynamic animations based on the user's generation.
 ### ✍️ **Signatures and Wishes**
 Invite friends to sign the card and leave heartfelt messages.
 
-![Wishes](/public/images/signatures.png)![Signatures](/public/images/sharepage.png)
+![Signatures](/public/images/signatures.png)
 
 ---
 
