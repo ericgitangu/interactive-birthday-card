@@ -19,18 +19,39 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const entry = {
-        name: session.user?.name || 'Anonymous',
-        signature,
-        comment,
-        createdAt: new Date().toISOString(),
-    };
+    const userName = session.user?.name || 'Anonymous';
 
     try {
+        // Check for existing signatures
+        const existingSignatures = await redis.lrange(`card:${cardId}:signatures`, 0, -1);
+        const hasSignedAlready = existingSignatures.some(sigString => {
+            try {
+                const parsed = JSON.parse(sigString);
+                return parsed.name === userName || parsed.signature === signature;
+            } catch (e) {
+                console.error('Failed to parse signature:', e);
+                return false;
+            }
+        });
+
+        if (hasSignedAlready) {
+            return NextResponse.json(
+                { error: "Thank you, but we've already received your wishes!" },
+                { status: 409 }
+            );
+        }
+
+        const entry = {
+            name: userName,
+            signature,
+            comment,
+            createdAt: new Date().toISOString(),
+        };
+
         await redis.rpush(`card:${cardId}:signatures`, JSON.stringify(entry));
         return NextResponse.json({ success: true });
     } catch (error: unknown) {
-        console.error(error);
+        console.error('Error processing signature:', error);
         return NextResponse.json({ error: 'Failed to save signature' }, { status: 500 });
     }
 }

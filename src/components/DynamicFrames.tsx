@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Box, Typography, Button, CircularProgress } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,6 +12,8 @@ interface DynamicFramesProps {
 const DynamicFrames: React.FC<DynamicFramesProps> = ({ persona }) => {
     const [images, setImages] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const [isHovering, setIsHovering] = useState(false);
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -19,10 +21,19 @@ const DynamicFrames: React.FC<DynamicFramesProps> = ({ persona }) => {
                 const response = await fetch(`/api/images?persona=${persona}`);
                 const data = await response.json();
                 console.log('Received images:', data);
-                if (data.length > 0) {
-                    console.log('First image URL:', data[0]);
-                }
-                setImages(data.filter((img: string) => img && img.trim() !== ''));
+
+                // Skip the first image and filter out invalid URLs
+                const validImages = data.slice(1).filter((img: string) => {
+                    if (!img || img.trim() === '') return false;
+                    try {
+                        new URL(img);
+                        return !img.includes('invalid') && !img.includes('isn\'t a valid image');
+                    } catch {
+                        return false;
+                    }
+                });
+
+                setImages(validImages);
             } catch (error) {
                 console.error('Failed to fetch images:', error);
             } finally {
@@ -32,6 +43,31 @@ const DynamicFrames: React.FC<DynamicFramesProps> = ({ persona }) => {
 
         fetchImages();
     }, [persona]);
+
+    // Add auto-scroll effect
+    useEffect(() => {
+        if (images.length === 0) return;
+
+        const scrollContainer = scrollContainerRef.current;
+        if (!scrollContainer) return;
+
+        const SCROLL_AMOUNT = 208; // 200px (image width) + 8px (gap)
+        const SCROLL_INTERVAL = 3000; // Scroll every 3 seconds
+
+        const scrollInterval = setInterval(() => {
+            if (!isHovering && scrollContainer) {
+                // If we're near the end, reset to start
+                if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth - scrollContainer.clientWidth - SCROLL_AMOUNT) {
+                    scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    // Scroll by one image width + gap
+                    scrollContainer.scrollBy({ left: SCROLL_AMOUNT, behavior: 'smooth' });
+                }
+            }
+        }, SCROLL_INTERVAL);
+
+        return () => clearInterval(scrollInterval);
+    }, [images, isHovering]);
 
     return (
         <Box
@@ -83,11 +119,14 @@ const DynamicFrames: React.FC<DynamicFramesProps> = ({ persona }) => {
 
             {/* Horizontal Scrollable Dynamic Frames */}
             <Box
+                ref={scrollContainerRef}
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
                 sx={{
                     display: 'flex',
                     flexDirection: 'row',
                     gap: 2,
-                    overflowX: 'auto', // Enable horizontal scrolling
+                    overflowX: 'auto',
                     width: '100%',
                     paddingBottom: 2,
                     '&::-webkit-scrollbar': {
@@ -100,6 +139,7 @@ const DynamicFrames: React.FC<DynamicFramesProps> = ({ persona }) => {
                     '&::-webkit-scrollbar-track': {
                         backgroundColor: '#f9f9f9',
                     },
+                    scrollBehavior: 'smooth', // Add smooth scrolling
                 }}
             >
                 {images.length > 0 ? (

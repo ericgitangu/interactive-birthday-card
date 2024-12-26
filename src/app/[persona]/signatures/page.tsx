@@ -42,7 +42,7 @@ const SignaturesPage: React.FC = () => {
                 setComment('');
                 router.push(`/${params.persona}`);
             } else {
-                showSnackbar('Failed to save your signature. Please try again.', 'error');
+                showSnackbar(`Thank you, but ${params.persona} has already received your wishes!`, 'error');
             }
         } catch {
             showSnackbar('Something went wrong. Please try again.', 'error');
