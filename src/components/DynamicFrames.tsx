@@ -1,4 +1,4 @@
-'use client';
+you'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
 import { Box, Typography, Button, CircularProgress } from '@mui/material';
@@ -109,7 +109,7 @@ const DynamicFrames: React.FC<DynamicFramesProps> = ({ persona }) => {
                     textShadow: '1px 1px 2px rgba(0,0,0,0.2)',
                 }}
             >
-                Memories with {persona.charAt(0).toUpperCase() + persona.slice(1)}
+                Memories with {persona.charAt(0).toUpperCase() + persona.slice(1)} @74
             </Typography>
 
             {/* Loading Indicator */}
